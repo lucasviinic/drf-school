@@ -44,24 +44,3 @@ class CursosTestCase(APITestCase):
         }
         response = self.client.put('/cursos/1/', data=data)
         self.assertEquals(response.status_code, status.HTTP_200_OK)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
