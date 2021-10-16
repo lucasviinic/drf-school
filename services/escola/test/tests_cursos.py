@@ -15,9 +15,6 @@ class CursosTestCase(APITestCase):
             codigo_curso='CT2', descricao='Curso teste 2', nivel='A'
         )
 
-    # def test_falhador(self):
-    #     self.fail('O teste falhou de proposito, não se preocupe :)')
-
     def test_requisicao_get_para_listar_cursos(self):
         '''Teste para verificar a requisição GET para listar os cursos'''
         response = self.client.get(self.list_url)
@@ -32,6 +29,21 @@ class CursosTestCase(APITestCase):
         }
         response = self.client.post(self.list_url, data=data)
         self.assertEquals(response.status_code, status.HTTP_201_CREATED)
+
+    def test_requisicao_delete_para_deletar_curso(self):
+        '''Teste para verificar a requisição DELETE não permitida para deletar um curso'''
+        response = self.client.delete('/cursos/1/')
+        self.assertEquals(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
+
+    def test_requisicao_put_para_atualizar_curso(self):
+        '''Teste para verificar requisição PUT para atualizar um curso'''
+        data = {
+            'codigo_curso': 'CTT1',
+            'descricao': 'Curso teste 1 atualizado',
+            'nivel': 'I'
+        }
+        response = self.client.put('/cursos/1/', data=data)
+        self.assertEquals(response.status_code, status.HTTP_200_OK)
 
 
 
